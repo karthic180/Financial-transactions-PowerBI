@@ -1,0 +1,56 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
+  "name": "b1aec41c727527955bb8",
+  "position": {
+    "x": 447.33334350585938,
+    "y": 147.33331298828125,
+    "z": 4000,
+    "height": 96,
+    "width": 192,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "transactions_data"
+                    }
+                  },
+                  "Property": "Unique Cards"
+                }
+              },
+              "queryRef": "transactions_data.Unique Cards",
+              "nativeQueryRef": "Unique Cards"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "transactions_data"
+                  }
+                },
+                "Property": "Unique Cards"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

@@ -1,0 +1,147 @@
+table users_data
+	lineageTag: 1d4e01d9-4b00-4f1c-bbcc-efd6837c26e9
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5d042e80-4a35-4253-b093-3bf70c52daac
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column current_age
+		dataType: int64
+		formatString: 0
+		lineageTag: ec8e68d8-4a25-4f5e-adc6-c336f1e66705
+		summarizeBy: none
+		sourceColumn: current_age
+
+		annotation SummarizationSetBy = Automatic
+
+	column retirement_age
+		dataType: int64
+		formatString: 0
+		lineageTag: 4385705c-b6f7-41cf-8a9f-ee942ef18b86
+		summarizeBy: none
+		sourceColumn: retirement_age
+
+		annotation SummarizationSetBy = Automatic
+
+	column birth_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 34487fa9-da01-411d-aa5e-fa01903125b4
+		summarizeBy: none
+		sourceColumn: birth_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column birth_month
+		dataType: int64
+		formatString: 0
+		lineageTag: ad9dcb4a-405f-4e9e-b6e9-7bd3de861cff
+		summarizeBy: none
+		sourceColumn: birth_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		lineageTag: b63e9b60-f776-42ee-a791-1c0d798bd1a2
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: 1579211e-76ae-4001-bd4f-3fe2e22f5507
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		lineageTag: 02aea5f9-ed26-4da6-bd75-0cb2f48fa486
+		summarizeBy: none
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		lineageTag: 063a3a4a-dfc6-4508-9c54-e29bad746e70
+		summarizeBy: none
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column per_capita_income
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 91f94321-0c51-4c1e-ab6a-ae7671faa7c5
+		summarizeBy: none
+		sourceColumn: per_capita_income
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column yearly_income
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 04a00b63-453b-40a6-aaf1-13b99134cfd5
+		summarizeBy: none
+		sourceColumn: yearly_income
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column total_debt
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: a687cf0e-36b0-4058-98ee-1a24185d3cdb
+		summarizeBy: none
+		sourceColumn: total_debt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column credit_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 5e746517-6569-478a-8858-46330325705d
+		summarizeBy: none
+		sourceColumn: credit_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_credit_cards
+		dataType: int64
+		formatString: 0
+		lineageTag: 10f71913-2c54-4605-97c0-dfe6ac1fb581
+		summarizeBy: none
+		sourceColumn: num_credit_cards
+
+		annotation SummarizationSetBy = Automatic
+
+	partition users_data = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\user100\Downloads\archive\users_data.csv"), [Delimiter = ",", Columns = 14, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"id", Int64.Type}, {"current_age", Int64.Type}, {"retirement_age", Int64.Type}, {"birth_year", Int64.Type}, {"birth_month", Int64.Type}, {"gender", type text}, {"address", type text}, {"latitude", type number}, {"longitude", type number}, {"per_capita_income", Currency.Type}, {"yearly_income", Currency.Type}, {"total_debt", Currency.Type}, {"credit_score", Int64.Type}, {"num_credit_cards", Int64.Type}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_ResultType = Table
+

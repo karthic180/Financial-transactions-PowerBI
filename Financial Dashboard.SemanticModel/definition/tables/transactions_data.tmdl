@@ -1,0 +1,246 @@
+table transactions_data
+	lineageTag: 8b3b87fb-0835-465c-9332-1058c1fac6c1
+
+	measure 'Total Transactions' =
+			
+			COUNTROWS(transactions_data)
+		formatString: 0
+		lineageTag: 47176ee5-06e8-4c37-bef4-75783fc5b185
+
+	measure 'Average Transaction' =
+			
+			AVERAGE(transactions_data[amount])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 25146ed7-c07a-4b55-96d4-ba5e0ba45e3e
+
+	measure 'Unique Cards' =
+			
+			DISTINCTCOUNT(transactions_data[card_id])
+		formatString: 0
+		lineageTag: 1a0e4efb-c5ea-4bf9-88c9-dd38dfa7cf2b
+
+	measure 'Total Amount' =
+			
+			SUM(transactions_data[amount])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: c7f83306-3378-45cd-9b5c-79a3ed48f008
+
+	measure 'Unique Customers' =
+			
+			DISTINCTCOUNT(transactions_data[client_id])
+		formatString: 0
+		lineageTag: 434df7f7-4a25-4191-a525-216680404f7e
+
+	measure 'Total Sales' =
+			
+			SUM(transactions_data[amount])
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 13cb96bf-284c-4f29-a61d-048d347edfdd
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Sales YTD' =
+			
+			TOTALYTD(
+			    [Total Sales],
+			    'Date Table'[Date]
+			)
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 26acf2ed-dcda-4571-8d9a-e6a5d2eee349
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Sales MTD' =
+			
+			TOTALMTD(
+			    [Total Sales],
+			    'Date Table'[Date]
+			)
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 92f1324d-d06e-4d76-b0c3-0a2365d072c2
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Sales QTD' = ```
+			
+			TOTALQTD(
+			    [Total Sales],
+			    'Date Table'[Date]
+			)
+			
+			```
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 0ddf860f-017f-4871-82af-67a707001543
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Sales Previous Year' = ```
+			
+			CALCULATE(
+			    [Total Sales],
+			    SAMEPERIODLASTYEAR('Date Table'[Date])
+			)
+			
+			```
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 89b3189d-2894-4d20-b383-c295fedd91f3
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'YoY Growth %' =
+			
+			DIVIDE(
+			    [Total Sales] - [Sales Previous Year],
+			    [Sales Previous Year],
+			    0
+			)
+		lineageTag: 418e19e4-a9ed-44ed-ad37-d554ae139419
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Credit Limit' =
+			
+			AVERAGE(cards_data[credit_limit])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: c87100c2-ccc7-4ee2-8afb-eec3365bbb54
+
+	measure 'Total Credit Limit' =
+			
+			SUM(cards_data[credit_limit])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 79ca17a3-b688-4982-8879-fe3c218ef9db
+
+	measure 'Credit Cards' =
+			
+			CALCULATE(
+			    COUNT(cards_data[id]),
+			    cards_data[card_type]="Credit"
+			)
+		formatString: 0
+		lineageTag: 7ed63954-71e8-4355-82ec-244e9dbac79e
+
+	column id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 489ceca5-b165-47d4-80e7-13b4f2b60f4c
+		summarizeBy: sum
+		sourceColumn: id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2fd78f21-a9d3-4f54-b8f0-b128d2cd6455
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+	column client_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bd07aa78-f300-44a6-bd93-d2d68caaaf5c
+		summarizeBy: none
+		sourceColumn: client_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column card_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a0a5756b-5d6f-4c05-8a64-8d6a43be0f06
+		summarizeBy: none
+		sourceColumn: card_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount
+		dataType: decimal
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 6f27b496-a41e-4a38-ae2d-02af43fadbd3
+		summarizeBy: sum
+		sourceColumn: amount
+
+		annotation SummarizationSetBy = Automatic
+
+	column use_chip
+		dataType: string
+		lineageTag: 6b5d39ff-6e49-4abe-b104-d3372797f6e8
+		summarizeBy: none
+		sourceColumn: use_chip
+
+		annotation SummarizationSetBy = Automatic
+
+	column merchant_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c21189b5-b1be-474e-a498-0343cfe7ae69
+		summarizeBy: sum
+		sourceColumn: merchant_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column merchant_city
+		dataType: string
+		lineageTag: e25c552a-4ac3-4943-9c4d-cf7d300642ea
+		summarizeBy: none
+		sourceColumn: merchant_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column merchant_state
+		dataType: string
+		lineageTag: aa07e041-64c5-46fd-bd54-13e048dc27ed
+		summarizeBy: none
+		sourceColumn: merchant_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column zip
+		dataType: int64
+		formatString: 0
+		lineageTag: ca8e3d33-4354-4c8d-a320-a62f3400398c
+		summarizeBy: sum
+		sourceColumn: zip
+
+		annotation SummarizationSetBy = Automatic
+
+	column mcc
+		dataType: int64
+		formatString: 0
+		lineageTag: 1df065b0-f654-4472-85ff-c89954cb50d1
+		summarizeBy: sum
+		sourceColumn: mcc
+
+		annotation SummarizationSetBy = Automatic
+
+	column errors
+		dataType: string
+		lineageTag: 9dcb5b2e-1d2c-4717-ab61-b6f1b619f317
+		summarizeBy: none
+		sourceColumn: errors
+
+		annotation SummarizationSetBy = Automatic
+
+	partition transactions_data = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\user100\Downloads\archive\transactions_data.csv"), [Delimiter = ",", Columns = 12, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"id", Int64.Type}, {"date", type datetime}, {"client_id", Int64.Type}, {"card_id", Int64.Type}, {"amount", Currency.Type}, {"use_chip", type text}, {"merchant_id", Int64.Type}, {"merchant_city", type text}, {"merchant_state", type text}, {"zip", Int64.Type}, {"mcc", Int64.Type}, {"errors", type text}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,134 @@
+table cards_data
+	lineageTag: 14a1888c-16a2-4b18-9b03-5947f842d91b
+
+	column id
+		dataType: int64
+		formatString: 0
+		lineageTag: 0891ae3e-1343-41fa-a873-68efc49c0982
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column client_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d38f81e-0cdf-4ed3-be78-125df89549d0
+		summarizeBy: sum
+		sourceColumn: client_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column card_brand
+		dataType: string
+		lineageTag: 03589dbf-1e5b-4bf9-a74b-b3414011acbe
+		summarizeBy: none
+		sourceColumn: card_brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column card_type
+		dataType: string
+		lineageTag: 7e52c5be-c7bc-448b-84d8-95fa359494bd
+		summarizeBy: none
+		sourceColumn: card_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column card_number
+		dataType: int64
+		formatString: 0
+		lineageTag: b1f18b2a-d89d-4f7c-9d09-643d8e2beb87
+		summarizeBy: sum
+		sourceColumn: card_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column expires
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3a73dff5-8b66-4ebe-940b-25c411b3c97b
+		summarizeBy: none
+		sourceColumn: expires
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column cvv
+		dataType: int64
+		formatString: 0
+		lineageTag: 1b1e2445-204a-41f1-8c51-34b051715dcf
+		summarizeBy: sum
+		sourceColumn: cvv
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_chip
+		dataType: string
+		lineageTag: 9396611e-4030-435e-a852-e33d469c7f94
+		summarizeBy: none
+		sourceColumn: has_chip
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_cards_issued
+		dataType: int64
+		formatString: 0
+		lineageTag: 31e09481-8320-4958-ba42-d50c7ae36af5
+		summarizeBy: sum
+		sourceColumn: num_cards_issued
+
+		annotation SummarizationSetBy = Automatic
+
+	column credit_limit
+		dataType: decimal
+		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		lineageTag: 774b6cfa-8d23-4a4d-be81-92615fb04c32
+		summarizeBy: sum
+		sourceColumn: credit_limit
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	column acct_open_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e423e5fa-84c4-497d-a70e-0adf93b09554
+		summarizeBy: none
+		sourceColumn: acct_open_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year_pin_last_changed
+		dataType: int64
+		formatString: 0
+		lineageTag: e11abee6-7f80-42e4-81b5-f07b2e3ec6f5
+		summarizeBy: sum
+		sourceColumn: year_pin_last_changed
+
+		annotation SummarizationSetBy = Automatic
+
+	column card_on_dark_web
+		dataType: string
+		lineageTag: 38cf5277-1c02-44ef-8702-4d61b4fc0af7
+		summarizeBy: none
+		sourceColumn: card_on_dark_web
+
+		annotation SummarizationSetBy = Automatic
+
+	partition cards_data = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\user100\Downloads\archive\cards_data.csv"), [Delimiter = ",", Columns = 13, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"id", Int64.Type}, {"client_id", Int64.Type}, {"card_brand", type text}, {"card_type", type text}, {"card_number", Int64.Type}, {"expires", type date}, {"cvv", Int64.Type}, {"has_chip", type text}, {"num_cards_issued", Int64.Type}, {"credit_limit", Currency.Type}, {"acct_open_date", type date}, {"year_pin_last_changed", Int64.Type}, {"card_on_dark_web", type text}}, "en-US")
+				in
+				  #"Changed column type"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,74 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "transactions_data",
+          "nodeLineageTag": "8b3b87fb-0835-465c-9332-1058c1fac6c1",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 487.76983240111247,
+            "y": 0
+          },
+          "nodeIndex": "users_data",
+          "nodeLineageTag": "1d4e01d9-4b00-4f1c-bbcc-efd6837c26e9",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 475.24959352776966,
+            "y": 347.11136967637771
+          },
+          "nodeIndex": "cards_data",
+          "nodeLineageTag": "14a1888c-16a2-4b18-9b03-5947f842d91b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 335.27776536155739
+          },
+          "nodeIndex": "Date Table",
+          "nodeLineageTag": "3e768031-1cbf-4331-989e-9d23d8a8a596",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 4
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 71.15871780007825,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": true,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

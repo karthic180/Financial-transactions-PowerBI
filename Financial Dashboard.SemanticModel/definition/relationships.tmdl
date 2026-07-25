@@ -1,0 +1,12 @@
+relationship a103e8b0-065e-f949-fbaf-dee5b367ffa7
+	fromColumn: transactions_data.date
+	toColumn: 'Date Table'.Date
+
+relationship 72549db6-a55c-7f85-c411-e79e91d05039
+	fromColumn: transactions_data.client_id
+	toColumn: users_data.id
+
+relationship 5b66cbd9-eceb-e08e-fb03-b50cd0fcdc3b
+	fromColumn: transactions_data.card_id
+	toColumn: cards_data.id
+
