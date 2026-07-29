@@ -1,11 +1,10 @@
 @echo off
-cd /d "%~dp0"
+cd /d C:\powerbi_project
 
-set /p msg=Commit message: 
-if "%msg%"=="" set msg=Update
+for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format ''yyyy-MM-dd HH:mm:ss''"') do set MSG=Power BI update %%i
 
 git add -A
-git commit -m "%msg%"
+git commit -m "%MSG%"
 git push origin main
 
 pause
