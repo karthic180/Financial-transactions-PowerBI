@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "version": "1.0",
   "artifacts": [
@@ -11,18 +10,4 @@
   "settings": {
     "enableAutoRecovery": true
   }
-=======
-{
-  "version": "1.0",
-  "artifacts": [
-    {
-      "report": {
-        "path": "Financial Dashboard.Report"
-      }
-    }
-  ],
-  "settings": {
-    "enableAutoRecovery": true
-  }
->>>>>>> 1664214 (Add Power BI Report and SemanticModel folders)
 }

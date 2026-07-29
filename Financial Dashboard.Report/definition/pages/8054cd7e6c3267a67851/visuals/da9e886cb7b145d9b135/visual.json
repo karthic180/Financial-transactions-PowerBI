@@ -1,38 +1,20 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.10.0/schema.json",
-  "name": "6ae0834edc322e0d862b",
+  "name": "da9e886cb7b145d9b135",
   "position": {
-    "x": 538,
-    "y": 300.6666259765625,
-    "z": 0,
-    "height": 384,
-    "width": 688,
-    "tabOrder": 0
+    "x": 72,
+    "y": 216,
+    "z": 3001,
+    "height": 72,
+    "width": 216,
+    "tabOrder": 3001
   },
   "visual": {
-    "visualType": "map",
+    "visualType": "card",
+    "autoSelectVisualType": true,
     "query": {
       "queryState": {
-        "Category": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "transactions_data"
-                    }
-                  },
-                  "Property": "merchant_city"
-                }
-              },
-              "queryRef": "transactions_data.merchant_city",
-              "nativeQueryRef": "merchant_city",
-              "active": true
-            }
-          ]
-        },
-        "Size": {
+        "Values": {
           "projections": [
             {
               "field": {
@@ -53,5 +35,23 @@
       }
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4d20dfc043607badc676",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "transactions_data"
+              }
+            },
+            "Property": "Total Amount"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

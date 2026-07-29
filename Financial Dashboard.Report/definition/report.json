@@ -9,6 +9,15 @@
         "page": "2.3.1"
       },
       "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "AccessibleNeutral",
+      "reportVersionAtImport": {
+        "visual": "2.10.0",
+        "report": "3.4.0",
+        "page": "2.3.1"
+      },
+      "type": "SharedResources"
     }
   },
   "objects": {
@@ -45,9 +54,19 @@
       "type": "SharedResources",
       "items": [
         {
+          "name": "AccessibleNeutral",
+          "path": "BuiltInThemes/AccessibleNeutral.json",
+          "type": "CustomTheme"
+        },
+        {
           "name": "CY26SU05",
           "path": "BaseThemes/CY26SU05.json",
           "type": "BaseTheme"
+        },
+        {
+          "name": "usa.states.topo",
+          "path": "Shapemaps/usa.states.topo.json",
+          "type": "ShapeMap"
         }
       ]
     }

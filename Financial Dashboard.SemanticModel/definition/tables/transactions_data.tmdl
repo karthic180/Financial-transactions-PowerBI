@@ -34,10 +34,10 @@ table transactions_data
 	measure 'Total Sales' =
 			
 			SUM(transactions_data[amount])
-		formatString: "£"#,0.###############;-"£"#,0.###############;"£"#,0.###############
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: 13cb96bf-284c-4f29-a61d-048d347edfdd
 
-		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	measure 'Sales YTD' =
 			
